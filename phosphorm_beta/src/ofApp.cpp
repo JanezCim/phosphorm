@@ -344,14 +344,18 @@ void ofApp::setup() {
     ofClear(0,0,0,255);
     fb1.end();
     
-    
-    
+    scan_sub_ = nh_.subscribe<sensor_msgs::LaserScan>("/scan", 10, &ofApp::scan_callback, this);
+}
 
+void ofApp::scan_callback(const sensor_msgs::LaserScan::ConstPtr& scan){
+    ROS_INFO("Got scan message");
+    return;
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
     midibiz();
+    ros::spinOnce();
     
 }
 

@@ -11,9 +11,11 @@
 #include "ofMain.h"
 #include "ofApp.h"
 
-int main(){
+int main(int argc, char *argv[]){
 	//ofGLWindowSettings settings;
 	//settings.setGLVersion(3,2);
+
+	ros::init(argc, argv, "phosphorm_ros"); 
 
 
 	ofGLESWindowSettings settings;

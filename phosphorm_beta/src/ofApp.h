@@ -12,6 +12,8 @@
 
 #include "ofMain.h"
 #include "ofxMidi.h"
+#include <ros/ros.h>
+#include <sensor_msgs/LaserScan.h>
 
 #ifdef TARGET_RASPBERRY_PI 
     #include "ofxOMXVideoGrabber.h"
@@ -119,6 +121,8 @@ public:
     
     
     float osc(float arg,float amp, int shape);
+
+    void scan_callback(const sensor_msgs::LaserScan::ConstPtr& scan);
    
     
     //for the phosphor styles
@@ -126,6 +130,9 @@ public:
     ofFbo fb1;
     
     ofShader shader_phosphor;
+
+    ros::NodeHandle nh_;
+    ros::Subscriber scan_sub_;
     
     
 };
