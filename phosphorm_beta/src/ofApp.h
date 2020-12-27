@@ -10,10 +10,15 @@
  */
 #pragma once
 
+// #define ROS // if you dont have ROS installed, comment this line out
+
 #include "ofMain.h"
 #include "ofxMidi.h"
-#include <ros/ros.h>
-#include <sensor_msgs/LaserScan.h>
+
+#ifdef ROS
+    #include <ros/ros.h>
+    #include <std_msgs/Int16MultiArray.h>
+#endif
 
 #ifdef TARGET_RASPBERRY_PI 
     #include "ofxOMXVideoGrabber.h"
@@ -121,18 +126,17 @@ public:
     
     
     float osc(float arg,float amp, int shape);
-
-    void scan_callback(const sensor_msgs::LaserScan::ConstPtr& scan);
    
-    
     //for the phosphor styles
     ofFbo fb0;
     ofFbo fb1;
     
     ofShader shader_phosphor;
 
-    ros::NodeHandle nh_;
-    ros::Subscriber scan_sub_;
-    
+    #ifdef ROS
+        ros::NodeHandle nh_;
+        ros::Subscriber ros_sub_;
+        void ros_callback(const std_msgs::Int16MultiArray::ConstPtr& msg);
+    #endif
     
 };

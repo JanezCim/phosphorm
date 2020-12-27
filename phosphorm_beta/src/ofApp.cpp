@@ -331,9 +331,8 @@ void ofApp::setup() {
     soundStream.setup(settings);
     
     
-    
     shader_phosphor.load("shadersES2/shader_phosphor");
-    
+    // ofSetBackgroundAuto(true);
     fb0.allocate(ofGetWidth(),ofGetHeight());
     fb0.begin();
     ofClear(0,0,0,255);
@@ -344,18 +343,43 @@ void ofApp::setup() {
     ofClear(0,0,0,255);
     fb1.end();
     
-    scan_sub_ = nh_.subscribe<sensor_msgs::LaserScan>("/scan", 10, &ofApp::scan_callback, this);
+    #ifdef ROS
+        ros_sub_ = nh_.subscribe<std_msgs::Int16MultiArray>("/phosporm_midi_input", 10, &ofApp::ros_callback, this);
+    #endif
 }
 
-void ofApp::scan_callback(const sensor_msgs::LaserScan::ConstPtr& scan){
-    ROS_INFO("Got scan message");
+// #ifdef ROS
+void ofApp::ros_callback(const std_msgs::Int16MultiArray::ConstPtr& ros_msg){
+    if(ros_msg->data.size()!=2){
+        ROS_WARN("Recieved ROS message data array length must be 2, it is instead %d", int(ros_msg->data.size()));
+        return;
+    }
+    
+    // convert from ros message to midi message - first int is control, second is value
+    ofxMidiMessage msg;
+    msg.control = ros_msg->data[0];
+    msg.value = ros_msg->data[1];
+    msg.status = MIDI_CONTROL_CHANGE;
+
+    // ROS_INFO("Recieved a message %d, %d", ros_msg->data[0], ros_msg->data[1]);
+
+    // add the latest message to the message queue
+	midiMessages.push_back(msg);
+
+	// remove any old messages if we have too many
+	while(midiMessages.size() > maxMessages) {
+		midiMessages.erase(midiMessages.begin());
+	}
     return;
 }
+// #endif
 
 //--------------------------------------------------------------
 void ofApp::update() {
     midibiz();
-    ros::spinOnce();
+    #ifdef ROS
+        ros::spinOnce();
+    #endif
     
 }
 
@@ -1026,19 +1050,13 @@ void ofApp::midibiz(){
         
         ofxMidiMessage &message = midiMessages[i];
         
-        
-        
-        
-        
-        
-        
-        
-        
         //cout << "envcount="<< envcount<< endl;
         
         if(message.status < MIDI_SYSEX) {
             //text << "chan: " << message.channel;
             if(message.status == MIDI_CONTROL_CHANGE) {
+
+                ROS_INFO("Got message %d", int(message.control));
                 //  cout << "message.control"<< message.control<< endl;
                 //  cout << "message.value"<< message.value<< endl;
                 

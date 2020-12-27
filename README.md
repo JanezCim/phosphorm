@@ -42,3 +42,13 @@ https://andreijaycreativecoding.com
 and toss me a donation via the paypal button!  the more donations i recieve the more time i have to devote to making cool shit like this available in the world!
 andreijay
 
+# compiling and running manually (this is only necesseary if you are compiling the whole project)
+        cd <path_to_openframeworks_app_folder>/phosphorm/phosphorm_beta
+        make
+        ./bin/phosphorm_beta
+
+# ros extension
+if you arent working with ros go to config.make and comment out the part where is says
+
+    PROJECT_CFLAGS+=-DROS 
+

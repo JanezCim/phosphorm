@@ -2,8 +2,11 @@ PROJECT_LDFLAGS=-Wl,-rpath=./libs
 PROJECT_LDFLAGS+=$(SUBLIBS) $(ros_libs_nocolon) 
 ros_libs = $(shell pkg-config --libs roscpp nav_msgs tf)
 ros_libs_nocolon = $(subst -l:,,$(ros_libs))
-PROJECT_OPTIMIZATION_CFLAGS_DEBUG = `pkg-config --cflags roscpp nav_msgs sensor_msgs tf` -w -O2 
-PROJECT_OPTIMIZATION_CFLAGS_RELEASE = `pkg-config --cflags roscpp nav_msgs sensor_msgs tf` -w -O2 
+PROJECT_OPTIMIZATION_CFLAGS_DEBUG = `pkg-config --cflags roscpp std_msgs tf` -w -O2 
+PROJECT_OPTIMIZATION_CFLAGS_RELEASE = `pkg-config --cflags roscpp std_msgs tf` -w -O2
+
+#flag that sets to compile with ros TODO - check environment variable ROS_DISTRO to set this or not
+PROJECT_CFLAGS+=-DROS # comment this out if you arent working with ROS
 
 ################################################################################
 # CONFIGURE PROJECT MAKEFILE (optional)
