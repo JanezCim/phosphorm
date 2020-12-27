@@ -408,7 +408,7 @@ void ofApp::draw() {
     fb0.begin();
     
     shader_phosphor.begin();
-    //shader_phosphor.setUniform1f("test",sx);
+    // shader_phosphor.setUniform1f("test",sx);
     fb1.draw(0,0);
     shader_phosphor.end();
     
@@ -458,10 +458,12 @@ void ofApp::draw() {
     fb0.begin();
     ofClear(0,0,0,255);
     fb0.end();
-    
+    fb1.begin();
+    ofClear(0,0,0,255);
+    fb1.end();
     
     ofSetHexColor(0xFFFFFF);
-    //ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(),2)+"fade: "+ofToString(sx,2), 10, ofGetHeight()-5 );
+    ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(),2)+"fade: "+ofToString(sx,2), 10, ofGetHeight()-5 );
     
     
 
@@ -1850,6 +1852,7 @@ void ofApp::midibiz(){
         
         
     }
+    midiMessages.clear(); //clear the queue once processing all of it
     
 }
                     
