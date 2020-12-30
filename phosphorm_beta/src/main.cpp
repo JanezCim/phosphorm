@@ -12,17 +12,16 @@
 #include "ofApp.h"
 
 int main(int argc, char *argv[]){
-	//ofGLWindowSettings settings;
-	//settings.setGLVersion(3,2);
-
-	ros::init(argc, argv, "phosphorm_ros"); 
-
+	// ofGLWindowSettings settings;
+	// settings.setGLVersion(3,2);
 
 	ofGLESWindowSettings settings;
 	settings.glesVersion=2;
 	settings.setSize(720,480);
 	ofCreateWindow(settings);
-    
+
+	ros::init(argc, argv, "phosphorm_ros"); 
+
 	// this kicks off the running of my app
 	// can be OF_WINDOW or OF_FULLSCREEN
 	// pass in width and height too:
