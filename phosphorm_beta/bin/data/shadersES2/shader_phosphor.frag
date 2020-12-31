@@ -1,6 +1,4 @@
-#if defined(PX_PLATFORM_WAYLAND_EGL) || defined(PX_PLATFORM_GENERIC_EGL)
 precision highp float;
-#endif
 
 uniform sampler2D tex0;
 
