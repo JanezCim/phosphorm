@@ -20,9 +20,9 @@
     #include <std_msgs/Int16MultiArray.h>
 #endif
 
-#ifdef TARGET_RASPBERRY_PI 
-    #include "ofxOMXVideoGrabber.h"
-#endif
+// #ifdef TARGET_RASPBERRY_PI 
+//     #include "ofxOMXVideoGrabber.h"
+// #endif
 
 /*
  * Copyright (c) 2013 Dan Wilcox <danomatika@gmail.com>

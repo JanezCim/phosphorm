@@ -12,12 +12,18 @@
 #include "ofApp.h"
 
 int main(int argc, char *argv[]){
-	// ofGLWindowSettings settings;
-	// settings.setGLVersion(3,2);
 
+	// #ifdef TARGET_RASPBERRY_PI 
 	ofGLESWindowSettings settings;
 	settings.glesVersion=2;
 	settings.setSize(720,480);
+	// #else
+	// ofGLFWWindowSettings settings;
+	// // ofGLWindowSettings settings;
+	// settings.setGLVersion(3,2);
+	// settings.setSize(720,480);
+	// #endif
+	settings.windowMode = OF_FULLSCREEN; //if fullscreen is wanted
 	ofCreateWindow(settings);
 
 	ros::init(argc, argv, "phosphorm_ros"); 
